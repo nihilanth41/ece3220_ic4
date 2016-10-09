@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstring>
 
@@ -15,6 +14,7 @@ class Stock{
 		void buy(int num, double price);
 		void sell(int num, double price);
 		void update(double price);
+		void display(void);
 };
 
 void Stock::acquire(const char * co, int n, double pr){
@@ -35,6 +35,45 @@ void Stock::acquire(const char * co, int n, double pr){
 	set_tot();
 }
 
+void Stock::buy(int num, double price) {
+
+	if(num < 0){
+		shares += 0;
+		std::cout << "Number of shares can't be negative." << std::endl;
+		std::cout << "Buying 0 shares." << std::endl;
+	}
+	else{
+		shares += num;
+		share_val += (price * num); 
+		std::cout << "Bought " << num << " share(s)"
+			     " of " << company << " for $"
+			     << price << " per share." << std::endl;
+	}
+
+
+}
+
+void Stock::sell(int num, double price) {
+	if(num < 0){
+		shares -= 0;
+		std::cout << "Number of shares can't be negative." << std::endl;
+		std::cout << "Selling 0 shares." << std::endl;
+	}
+	else{
+		shares -= num;
+		share_val -= (price * num); 
+		std::cout << "Sold " << num << " share(s)"
+			     " of " << company << " for $"
+			     << price << " per share." << std::endl;
+	}
+
+
+}
+
+void Stock::update(double price) {
+
+}
+
 int main(){
 	using std::cout;
 	using std::endl;
@@ -43,7 +82,14 @@ int main(){
 	
 	stock1.acquire("Nanosmart", 20, 12.50);
 	stock2.acquire("Amazon", 30, 100);
-	
+
+	stock1.buy(1, 2.99);
+	stock1.sell(1, 2.99);
+
+	// Can't print private class members directly
+	//  - Need accessor methods
+	//cout << stock1.shares << endl;
+
 	cout << "\nTest..." << endl;
 
 	return 0;
