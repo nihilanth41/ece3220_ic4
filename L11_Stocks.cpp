@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 
 class Stock{
 	private:
@@ -50,6 +51,7 @@ void Stock::buy(int num, double price) {
 			     << price << " per share." << std::endl;
 	}
 
+	set_tot();
 
 }
 
@@ -68,10 +70,30 @@ void Stock::sell(int num, double price) {
 	}
 
 
+	set_tot();
 }
 
 void Stock::update(double price) {
+	if(price < 0.0)
+	{
+		share_val = 0.0;
+		std::cout << "Share price can't be negative." << std::endl;
+		std::cout << "Setting share value to $0.00" << std::endl;
+	}
+	else
+	{
+		share_val = price;
+		std::cout << "Setting share price to $" << price << std::endl;
+	}
 
+	set_tot();
+}
+
+void Stock::display(void) {
+		printf("\nCompany: %s\n", company);
+		printf("Number of Shares: %d\n", shares);
+		printf("Share Value: $%0.4lf\n", share_val);
+		printf("Total Value: $%0.4lf\n\n", total_val);
 }
 
 int main(){
@@ -81,16 +103,28 @@ int main(){
 	Stock stock1, stock2;
 	
 	stock1.acquire("Nanosmart", 20, 12.50);
-	stock2.acquire("Amazon", 30, 100);
+	
+	stock1.display();
 
 	stock1.buy(1, 2.99);
-	stock1.sell(1, 2.99);
+	
+	stock1.display();
+
+	stock1.sell(1, 5.99);
+
+	stock1.update(24.00);
+
+	stock1.display();
+	
+	stock2.acquire("Amazon", 30, 100);
+	stock2.display();
 
 	// Can't print private class members directly
 	//  - Need accessor methods
+	//  - Or make variables public class members
 	//cout << stock1.shares << endl;
 
-	cout << "\nTest..." << endl;
+	//cout << "\nTest..." << endl;
 
 	return 0;
 }
