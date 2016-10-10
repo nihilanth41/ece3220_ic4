@@ -12,19 +12,22 @@ class Stock{
 		
 	public:
 		void acquire(const char * co, int n, double pr);
+		void acquire(const char *co);
 		void buy(int num, double price);
 		void sell(int num, double price);
 		void update(double price);
 		void display(void);
+		// Constructors
+		Stock(const char *);
+  
 };
 
 
 Stock::Stock(const char *co) {
-// Constructor takes only company name, sets everything else to 0.
+  // Constructor takes only company name, sets everything else to 0.
   acquire(co, 0, 0.0);
   set_tot();
 }
-  
 
 void Stock::acquire(const char * co, int n, double pr){
 	std::strncpy(company, co, 29);
@@ -41,6 +44,14 @@ void Stock::acquire(const char * co, int n, double pr){
 	}
 	
 	share_val = pr;
+	set_tot();
+}
+
+void Stock::acquire(const char *co) {
+	std::strncpy(company, co, 29);
+	company[29] = '\0';
+	shares = 0;
+	share_val = 0.0;
 	set_tot();
 }
 
