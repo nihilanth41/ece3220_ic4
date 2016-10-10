@@ -9,17 +9,16 @@ class Stock{
 		double share_val;
 		double total_val;
 		void set_tot(){total_val = shares * share_val; }
-		
-	public:
 		void acquire(const char * co, int n, double pr);
 		void acquire(const char *co);
+	public:
+
 		void buy(int num, double price);
 		void sell(int num, double price);
 		void update(double price);
 		void display(void);
 		// Constructors
 		Stock(const char *);
-  
 };
 
 
@@ -109,6 +108,8 @@ void Stock::update(double price) {
 }
 
 void Stock::display(void) {
+		// Used printf intentionally instead of cout 
+		// b/c personal preference
 		printf("\nCompany: %s\n", company);
 		printf("Number of Shares: %d\n", shares);
 		printf("Share Value: $%0.4lf\n", share_val);
@@ -118,32 +119,20 @@ void Stock::display(void) {
 int main(){
 	using std::cout;
 	using std::endl;
-	
-	Stock stock1, stock2;
-	
-	stock1.acquire("Nanosmart", 20, 12.50);
-	
-	stock1.display();
 
+	// Use new constructor to call private method acquire()
+	Stock stock1 = Stock("Nanosmart");
+	stock1.display();
 	stock1.buy(1, 2.99);
-	
 	stock1.display();
-
 	stock1.sell(1, 5.99);
-
 	stock1.update(24.00);
-
 	stock1.display();
-	
-	stock2.acquire("Amazon", 30, 100);
+
+	Stock stock2 = Stock("Amazon");
 	stock2.display();
-
-	// Can't print private class members directly
-	//  - Need accessor methods
-	//  - Or make variables public class members
-	//cout << stock1.shares << endl;
-
-	//cout << "\nTest..." << endl;
+	stock2.buy(1, 900.57);
+	stock2.display();
 
 	return 0;
 }
