@@ -18,6 +18,14 @@ class Stock{
 		void display(void);
 };
 
+
+Stock::Stock(const char *co) {
+// Constructor takes only company name, sets everything else to 0.
+  acquire(co, 0, 0.0);
+  set_tot();
+}
+  
+
 void Stock::acquire(const char * co, int n, double pr){
 	std::strncpy(company, co, 29);
 	company[29] = '\0';
